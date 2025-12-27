@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Letter</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#000;
+  font-family:"Segoe Script","Bradley Hand","Comic Sans MS",cursive;
+  overflow:hidden;
+  animation:flicker 1.2s infinite;
+  color:#2b1d12;
+}
+
+/* HARD OMORI flicker */
+@keyframes flicker{
+  0%,100%{filter:brightness(1)}
+  5%{filter:brightness(.7)}
+  10%{filter:brightness(1.05)}
+  15%{filter:brightness(.8)}
+  20%{filter:brightness(1.1)}
+  25%{filter:brightness(.75)}
+  30%{filter:brightness(1.05)}
+  35%{filter:brightness(.85)}
+  40%{filter:brightness(1)}
+  45%{filter:brightness(.7)}
+  50%{filter:brightness(1.08)}
+  55%{filter:brightness(.8)}
+  60%{filter:brightness(1)}
+  65%{filter:brightness(.9)}
+  70%{filter:brightness(1.05)}
+  75%{filter:brightness(.8)}
+  80%{filter:brightness(1.1)}
+  85%{filter:brightness(.75)}
+  90%{filter:brightness(1)}
+  95%{filter:brightness(.85)}
+}
+
+/* Shooting stars behind everything */
+.star{
+  position:fixed;
+  top:-10vh;
+  left:-10vw;
+  width:2px;height:80px;
+  background:linear-gradient(transparent,rgba(255,255,255,.8));
+  opacity:.6;
+  animation:shoot 4s linear infinite;
+  z-index:0;
+}
+@keyframes shoot{
+  from{transform:translate(-20vw,-20vh) rotate(45deg)}
+  to{transform:translate(120vw,120vh) rotate(45deg)}
+}
+
+/* Envelope container */
+.envelope{
+  position:relative;
+  width:280px;
+  height:190px;
+  perspective:800px;
+  z-index:5;
+  cursor:pointer;
+}
+
+/* Flap */
+.flap{
+  position:absolute;
+  top:0;left:0;right:0;
+  height:95px;
+  background:#f0d9ad;
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  transform-origin:top;
+  z-index:3;
+  transition: transform 0.8s ease-in-out;
+}
+
+/* Seal */
+.seal{
+  position:absolute;
+  bottom:18px;
+  left:50%;
+  transform:translateX(-50%);
+  width:60px;height:60px;
+  background:#fff;
+  border-radius:50%;
+  box-shadow:0 4px 10px rgba(0,0,0,.4);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:30px;
+  z-index:4;
+}
+.seal::after{
+  content:"🎀";
+  position:absolute;
+  top:-12px;
+  font-size:20px;
+}
+
+/* Paper inside envelope */
+.paper{
+  position:absolute;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%) translateY(50px);
+  width:90%;
+  max-width:460px;
+  background:#fff2d9;
+  padding:36px;
+  border-radius:14px;
+  box-shadow:
+    inset 0 0 45px rgba(120,60,0,.4),
+    0 25px 60px rgba(0,0,0,.85);
+  opacity:0;
+  z-index:2;
+  transition:all 1s ease;
+  font-size:1.05rem;
+  line-height:1.75;
+  animation:paperFlicker 1.5s infinite;
+}
+.paper::before{
+  content:"";
+  position:absolute;
+  inset:-14px;
+  background:
+    radial-gradient(circle at 10% 10%,transparent 40%,rgba(50,15,0,.8) 75%),
+    radial-gradient(circle at 90% 90%,transparent 40%,rgba(50,15,0,.8) 75%);
+  z-index:-1;
+  filter:blur(7px);
+}
+
+/* Flicker on paper */
+@keyframes paperFlicker{
+  0%{filter:none}
+  20%{filter:brightness(.85)}
+  40%{filter:brightness(1.1)}
+  60%{filter:brightness(.8)}
+  80%{filter:brightness(1.05)}
+  100%{filter:none}
+}
+
+/* Overlay */
+#overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.75);
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.4rem;
+  z-index:10;
+  text-align:center;
+  padding:20px;
+}
+</style>
+</head>
+<body>
+
+<div id="overlay">Tap the envelope ✉️</div>
+
+<script>
+for(let i=0;i<12;i++){
+  const s=document.createElement("div");
+  s.className="star";
+  s.style.animationDelay=Math.random()*4+"s";
+  document.body.appendChild(s);
+}
+</script>
+
+<div class="envelope" id="envelope">
+  <div class="flap" id="flap"></div>
+  <div class="seal">😺</div>
+  <div class="paper" id="paper">
+    <p>From the day I saw you to the day we shall die together, I’ve loved you and always will love you so, so, so, soooooo unbelievably much.</p>
+    <p>You’re the bestest, cutest, and amazingest thing that has ever EVER EVERRRR happened to me. Oh, my sweet Ariana.</p>
+    <p>You may hide things, or say that I’m lying, or push me away, but I won’t care. I’m here for you. I’m gonna stay here regardless of anything, love, because you’re the love of my life.</p>
+    <p>Even your dark brown hair screams cuteness, and when the sun shines through it, it’s like a fairy has awoken — it’s such a beautiful sight.</p>
+    <p>Your smile — I love it. You look so pretty and confident &lt;3.</p>
+    <p>Your nose, though fat, is perfect. I don’t care about your body. You could be thin, fat, hourglass, or chubby, and I’d love you the same, my sweet, amazing, cute darling.</p>
+    <p>Oh, I love you. I love you so, so, so, SOOOOOO much. Even if the moon were bribed to stop me, I wouldn’t.</p>
+    <p>I’d be kind for you. I’d change my cold, lifeless demeanor for you. For you, I’d become an amazing person.</p>
+    <p>I love you, my sweet, cute, beautiful Ariana. You’re the best thing that has ever happened to me :&gt; &lt;&lt;333</p>
+    <p style="margin-top:28px;font-style:italic;text-align:right;">— from Huza</p>
+  </div>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="pipopipo.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const envelope=document.getElementById("envelope");
+const flap=document.getElementById("flap");
+const paper=document.getElementById("paper");
+const overlay=document.getElementById("overlay");
+const music=document.getElementById("bgMusic");
+
+overlay.onclick=()=>{
+  overlay.style.display="none";
+  flap.style.transform="rotateX(180deg)";
+  setTimeout(()=>{paper.style.opacity="1"; paper.style.transform="translateX(-50%) translateY(-180px)"; music.play();}, 800);
+};
+
+/* Hard flicker jitter */
+setInterval(()=>{
+  if(Math.random()<0.08){
+    document.body.style.transform="translate("+(Math.random()*2-1)+"px,"+(Math.random()*2-1)+"px)";
+    setTimeout(()=>document.body.style.transform="",80);
+  }
+},200);
+</script>
+</body>
+</html>
